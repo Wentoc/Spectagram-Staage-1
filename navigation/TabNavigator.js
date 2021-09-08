@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Ionicons } from 'react-native-vector-icons/Ionicons';
@@ -10,37 +10,43 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTabNavigator = ()=>{
-  return (
-        <Tab.Navigator
-        labeled={false}
-        barStyle={styles.bottomTabStyle}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === "Feed") {
-              iconName = focused ? "home" : "home-outline";
-            } else if (route.name === "Create Story") {
-              iconName = focused ? "add-circle" : "add-circle-outline";
+export default class TabNavigator extends React.Component {
+  render() {
+    return (
+
+          <Tab.Navigator
+          labeled={false}
+          barStyle={styles.bottomTabStyle}
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              if (route.name === "Feed") {
+                iconName = focused ? "home" : "home-outline";
+              } else if (route.name === "Create Story") {
+                iconName = focused ? "add-circle" : "add-circle-outline";
+              }
+              return (
+                <Ionicons
+                  name={iconName}
+                  size={RFValue(25)}
+                  color={color}
+                  style={styles.icons}
+                />
+              );
             }
-            return (
-              <Ionicons
-                name={iconName}
-                size={RFValue(25)}
-                color={color}
-                style={styles.icons}
-              />
-            );
-          }
-        })}
-        activeColor={"#ee8249"}
-        inactiveColor={"gray"}
-      >
-        <Tab.Screen name="Feed" component={Feed} />
-        <Tab.Screen name="Create Story" component={CreateStory} />
-      </Tab.Navigator>
-  );
+          })}
+          activeColor={"#ee8249"}
+          inactiveColor={"gray"}
+        >
+          <Tab.Screen name="Feed" component={Feed} />
+          <Tab.Screen name="Create Story" component={CreateStory} />
+        </Tab.Navigator>
+
+    );
+  }
 }
+// const BottomTabNavigator = ()=>{
+// }
 
 const styles = StyleSheet.create({
   bottomTabStyle: {
@@ -57,4 +63,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BottomTabNavigator;
+// export default BottomTabNavigator;
